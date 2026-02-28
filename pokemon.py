@@ -113,10 +113,6 @@ if selected_pokemon:
         ax.tick_params(axis='y', colors='white')
         st.pyplot(fig)
         
-        # Back button to return to the main page
-        if st.button("Back to List"):
-            st.query_params.clear()
-            st.rerun()
     else:
         st.error("Pokémon not found.")
 else:
