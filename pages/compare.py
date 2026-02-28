@@ -70,10 +70,6 @@ with col1:
             ax.tick_params(axis='y', colors='white')
             st.pyplot(fig)
         
-            # Back button to return to the main page
-            if st.button("Back to List", key="back_button_1"):
-                st.query_params.clear()
-                st.rerun()
         else:
             st.error("Pokémon not found.")
     else:
@@ -137,11 +133,7 @@ with col2:
             ax.tick_params(axis='x', colors='white')
             ax.tick_params(axis='y', colors='white')
             st.pyplot(fig)
-        
-            # Back button to return to the main page
-            if st.button("Back to List", key="back_button_2"):
-                st.query_params.clear()
-                st.rerun()
+
         else:
             st.error("Pokémon not found.")
     else:
