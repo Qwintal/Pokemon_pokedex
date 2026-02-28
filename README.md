@@ -24,8 +24,6 @@ This project focuses just on Python-based exploratory data analysis and interact
 - **Matplotlib & Seaborn** – Data visualization
 - **Pandas & NumPy** – Data processing & calculations  
 
----
-
 ## Installation Guide
 ### Prerequisites
 - Python 3.8+
