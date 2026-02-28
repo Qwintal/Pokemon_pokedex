@@ -71,6 +71,10 @@ legendary_filter = st.sidebar.checkbox("Show Only Legendary", key="legendary_fil
 if legendary_filter:
     filtered_df = filtered_df[filtered_df['is_legendary'] == 1]
 
-# Display the filtered dataframe
+# Displaying colums which are important and in better order.
+display_cols = ['pokedex_number', 'name', 'abilities', 'generation', 'type1', 'type2', 
+                'height_m', 'weight_kg', 'is_legendary', 'hp', 'attack', 'defense', 
+                'sp_attack', 'sp_defense', 'speed', 'base_total']
+
 st.write(f"Showing {len(filtered_df)} Pokémon matching your criteria:")
-st.dataframe(filtered_df)
+st.dataframe(filtered_df[display_cols])
