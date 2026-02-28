@@ -25,22 +25,12 @@ This project focuses just on Python-based exploratory data analysis and interact
 - **Pandas & NumPy** – Data processing & calculations  
 
 ## Installation Guide
-### Prerequisites
-- Python 3.8+
-- pip
-
-### Steps
-1. Clone the repository  
-   ```bash
-   git clone https://github.com/Qwintal/pokemon.git
-   cd pokemon
-   ```
-2. ``` bash
-   pip install -r requirements.txt
-   ```
-3. ``` bash
-   streamlit run pokemon.py
-   ```
+```
+git clone https://github.com/Qwintal/Pokemon_pokedex.git
+cd Pokemon_pokedex
+pip install -r requirements.txt
+streamlit run pokemon.py
+```
 
 ## Future Updates
 - Add up-to-date Pokémon (latest generations & forms).
