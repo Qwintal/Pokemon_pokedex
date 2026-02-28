@@ -21,7 +21,7 @@ This project focuses just on Python-based exploratory data analysis and interact
 ## Tech Stack
 - **Python** – Core programming language
 - **Streamlit** – Web app deployment
-- **Matplotlib & Seaborn** – Data visualization
+- **Matplotlib** – Data visualization
 - **Pandas & NumPy** – Data processing & calculations  
 
 ## Installation Guide
