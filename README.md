@@ -7,7 +7,7 @@ The app is designed for both casual Pokémon fans and data enthusiasts, providin
 It also showcases how Python can be used for **data handling, visualization, and web deployment**.
 
 ## Scope:
-This project focuses on Python-based exploratory data analysis and interactive visualization. Predictive modeling is intentionally out of scope.
+This project focuses just on Python-based exploratory data analysis and interactive visualization.
 
 ---
 
