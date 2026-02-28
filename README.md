@@ -48,11 +48,11 @@ This project focuses just on Python-based exploratory data analysis and interact
 - Add up-to-date Pokémon (latest generations & forms).
 - Add a Team Builder page to analyze team weaknesses and suggest improvements.
 
-## What I Learned
-- How to deploy a Python web app with Streamlit.
-- How to clean, manage, and process structured datasets.
-- How to create interactive visualizations with Matplotlib & Seaborn.
-- How to design an end-to-end project (from data to deployment).
+## Key Engineering Decisions
+- Selected Streamlit for rapid prototyping and simplified deployment.
+- Structured the application to separate data loading, filtering logic, and visualization components for maintainability.
+- Structured filtering logic to support exploratory analysis rather than static reporting.
+- Separated preprocessing and visualization logic to maintain modular code structure.
 
 ## Inspiration & References
 [Click Here](https://pokemondb.net/)
