@@ -1,4 +1,4 @@
-# 🧾 Pokémon  – Interactive Web App
+# Pokémon  – Interactive Web App
 
 ## Overview
 This project is an **interactive Pokémon Pokedex web application** built with Streamlit.\
