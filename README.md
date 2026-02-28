@@ -9,8 +9,6 @@ It also showcases how Python can be used for **data handling, visualization, and
 ## Scope:
 This project focuses just on Python-based exploratory data analysis and interactive visualization.
 
----
-
 ## Features
 - **Advanced Search** – Filter Pokémon by type, stats, and other attributes.
 - **Compare Tool** – Compare multiple Pokémon side by side.
@@ -19,8 +17,6 @@ This project focuses just on Python-based exploratory data analysis and interact
 - **View All Page** – Browse the full dataset (to be improved/removed in future updates).  
 
 **Live Demo:** [Click Here](https://pokemon-pokedex.streamlit.app/)
-
----
 
 ## Tech Stack
 - **Python** – Core programming language
@@ -49,20 +45,14 @@ This project focuses just on Python-based exploratory data analysis and interact
    ```
 
 ## Future Updates
-1. Add up-to-date Pokémon (latest generations & forms).
-2. Introduce radar charts for base stats.
-3. Improve the comparison page with more visuals.
-4. Make the insights page more professional and interactive.
-5. Enhance advanced search with more filters.
-6. Remove/restructure the “View All” page.
-7. Add a Team Builder page to analyze team weaknesses and suggest improvements.
+- Add up-to-date Pokémon (latest generations & forms).
+- Add a Team Builder page to analyze team weaknesses and suggest improvements.
+
+## What I Learned
+- How to deploy a Python web app with Streamlit.
+- How to clean, manage, and process structured datasets.
+- How to create interactive visualizations with Matplotlib & Seaborn.
+- How to design an end-to-end project (from data to deployment).
 
 ## Inspiration & References
 [Click Here](https://pokemondb.net/)
-
-## What I Learned
-- How to deploy a Python web app with Streamlit.\
-- How to clean, manage, and process structured datasets.\
-- How to create interactive visualizations with Matplotlib & Seaborn.\
-- How to design an end-to-end project (from data to deployment).
-
