@@ -14,9 +14,9 @@ st.write("Here are the top 10 Pokémon based on their total base stats:")
 st.dataframe(top_10)
 st.markdown("""
 **Interpretation:**  
-Mewtwo and Rayquaza are the strongest Pokémon in the dataset, both scoring 780 — the highest possible in this list. Right behind them are Kyogre and Groudon at 770.
+M- Mewtwo and M- Rayquaza are the strongest Pokémon in the dataset, both scoring 780 — the highest possible in this list. Right behind them are P- Kyogre and P- Groudon at 770.
 Most Pokémon in this top 10 are legendaries, which makes sense since they're intentionally designed to be rare and overpowered compared to regular Pokémon.
-The last four spots (Tyranitar, Salamence, Metagross, and Latias) all tie at 700 — these are "pseudo-legendaries," 
+The last spots (M-Tyranitar, M-Salamence, M-Metagross) all tie at 700 — these are "pseudo-legendaries," 
 meaning they're not true legendaries but still among the most powerful non-legendary Pokémon you can get.
 """)
 
@@ -77,7 +77,7 @@ Generations 1–3 hover around a median of roughly 420, while Generations 4–7 
 It's not a huge jump, but it suggests Game Freak gradually introduced slightly stronger Pokémon over time — a phenomenon fans often call "power creep."
 The overall spread (weakest to strongest) stays pretty similar across all generations, 
 meaning every generation still has its weak early-route Pokémon and its powerful endgame ones. 
-The outlier dots at the top of Gen 1 and Gen 3 are likely the legendaries like Mewtwo and Rayquaza pulling the ceiling up.
+The outlier dots at the top of Gen 1 and Gen 3 are likely the legendaries like M-Mewtwo and M-Rayquaza pulling the ceiling up.
 """)
 
 # Correlation between height and weight
