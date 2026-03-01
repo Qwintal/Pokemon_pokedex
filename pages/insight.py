@@ -14,8 +14,10 @@ st.write("Here are the top 10 Pokémon based on their total base stats:")
 st.dataframe(top_10)
 st.markdown("""
 **Interpretation:**  
-These Pokémon represent the highest aggregate stat profiles in the dataset.  
-They typically include legendary or pseudo-legendary species, reflecting intentional game balance design around rarity and power.
+Mewtwo and Rayquaza are the strongest Pokémon in the dataset, both scoring 780 — the highest possible in this list. Right behind them are Kyogre and Groudon at 770.
+Most Pokémon in this top 10 are legendaries, which makes sense since they're intentionally designed to be rare and overpowered compared to regular Pokémon.
+The last four spots (Tyranitar, Salamence, Metagross, and Latias) all tie at 700 — these are "pseudo-legendaries," 
+meaning they're not true legendaries but still among the most powerful non-legendary Pokémon you can get.
 """)
 
 # Average Base total by type
@@ -30,8 +32,12 @@ ax.tick_params(axis='x', rotation=45)
 st.pyplot(fig)
 st.markdown("""
 **Interpretation:**  
-Some primary types exhibit consistently higher average base totals.  
-This suggests structural design differences between types, where certain archetypes are inherently stronger in aggregate stats.
+Dragon-type Pokémon are the strongest on average with a base total around 520, followed closely by Steel and Psychic types.
+This is no surprise — Dragon types are famously hard to obtain and are usually late-game powerhouses.
+On the flip side, Bug-type Pokémon are the weakest on average, 
+which matches the experience of most players since Bug types tend to be the first ones you encounter early in the game and never quite keep up later on.
+Overall, the gap between the strongest and weakest types isn't massive (roughly 520 vs 380), 
+but your Pokémon's type does have a noticeable impact on how strong it's likely to be.
 """)
 
 # Legendary vs Non-Legendary
@@ -44,9 +50,14 @@ ax.set_title("Base Total Distribution")
 ax.set_ylabel("Base Total")
 st.pyplot(fig)
 st.markdown("""
+Hypothesis: Legendaries are intentionally designed with a "power floor"
+
 **Interpretation:**  
-Legendary Pokémon show a clear upward shift in base total distribution.  
-The variance also tends to be tighter, indicating deliberate power scaling within this category.
+Legendary Pokémon are significantly stronger than regular ones. The typical legendary sits around a base total of 600, while the typical non-legendary is around 420. 
+What's also interesting is that legendaries are more consistent — most of them cluster tightly between 580 and 680, 
+meaning Game Freak deliberately keeps them in a high power bracket. 
+Non-legendaries, on the other hand, are all over the place, ranging from weak early-route Pokémon all the way up to near-legendary strength. 
+The two dots on the legendary side (around 200 and 400) are likely outliers like weaker legendary forms or baby legendaries.
 """)
 
 # Base total by Generation 
@@ -61,8 +72,12 @@ ax.set_ylabel("Base Total")
 st.pyplot(fig)
 st.markdown("""
 **Interpretation:**  
-Changes in distribution across generations may reflect evolving game balance philosophy.  
-Later generations may introduce broader stat variance or stronger average profiles.
+Pokémon haven't gotten dramatically stronger over the generations, but there's a slight upward trend. 
+Generations 1–3 hover around a median of roughly 420, while Generations 4–7 sit a bit higher, closer to 450–480. 
+It's not a huge jump, but it suggests Game Freak gradually introduced slightly stronger Pokémon over time — a phenomenon fans often call "power creep."
+The overall spread (weakest to strongest) stays pretty similar across all generations, 
+meaning every generation still has its weak early-route Pokémon and its powerful endgame ones. 
+The outlier dots at the top of Gen 1 and Gen 3 are likely the legendaries like Mewtwo and Rayquaza pulling the ceiling up.
 """)
 
 # Correlation between height and weight
@@ -76,9 +91,17 @@ ax.grid(True, linestyle="--", alpha=0.7)
 st.pyplot(fig)
 st.write(f"Pearson correlation coefficient: **{corr_hw:.2f}**")
 st.markdown("""
+Hypothesis: Pokémon type plays a bigger role in weight than height does. 
+
 **Interpretation:**  
-A positive correlation here would align with real-world expectations: larger (taller) Pokémon are likely heavier due to increased mass. 
-            Outliers might include lightweight tall Pokémon (e.g., flying types) or heavy short ones (e.g., rock types).
+Taller Pokémon tend to weigh more — but it's not a strict rule. 
+The correlation score of 0.63 means there's a moderate positive relationship, so height and weight do move together, just not perfectly. 
+Most Pokémon are clustered in the bottom-left corner, meaning the majority are small and light. 
+As height increases, weight generally goes up too, but with a lot of exceptions.
+The outliers are the most interesting part. 
+Some Pokémon are extremely heavy despite being short (likely bulky Rock or Steel types like Steelix or Cosmoem), 
+while others are very tall but surprisingly light (likely Flying or Ghost types whose bodies aren't dense). 
+The dot at 14 meters wide with only ~400kg is a great example — that's almost certainly Wailord, famously one of the largest yet lightest Pokémon, basically a giant balloon.
 """)
 
 # Correlation between egg steps and base total
@@ -92,8 +115,15 @@ ax.grid(True, linestyle="--", alpha=0.7)
 st.pyplot(fig)
 st.write(f"Pearson correlation coefficient: **{corr_egg:.2f}**")
 st.markdown("""
+Hypothesis: Egg steps are less about balance and more about gatekeeping. 
+
 **Interpretation:**  
-In Pokémon games, egg steps often reflect a Pokémon’s rarity or power. 
-            A positive correlation would suggest that stronger Pokémon (higher base total) take longer to hatch, aligning with species like legendaries or pseudo-legendaries.
-            A low or negative correlation might indicate design balance or exceptions like weak Pokémon with long hatch times.
+Stronger Pokémon generally take longer to hatch — and the cluster at 30,000 steps makes this very obvious. 
+The correlation of 0.50 means it's a moderate relationship. 
+Most Pokémon hatch between 1,000–10,000 steps and span all power levels, but the standout group is the far-right column at ~30,000 steps, 
+which contains almost exclusively high base total Pokémon. 
+Those are almost certainly legendaries, which the game deliberately makes hardest to hatch as a way of reinforcing how rare and special they are.
+The wide vertical spread in the early egg step range (left side) tells an interesting story too — low hatch times don't guarantee a weak Pokémon, 
+since plenty of strong ones also hatch quickly. So while long hatch time is a good signal of a powerful Pokémon, 
+a short hatch time doesn't necessarily mean weak.
 """)
