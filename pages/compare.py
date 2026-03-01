@@ -132,7 +132,7 @@ with col2:
             ax.tick_params(axis='x', colors='white')
             ax.tick_params(axis='y', colors='white')
             st.pyplot(fig)
-                st.rerun()
+            st.rerun()
         else:
             st.error("Pokémon not found.")
     else:
