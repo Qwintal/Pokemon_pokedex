@@ -116,4 +116,4 @@ if selected_pokemon:
     else:
         st.error("Pokémon not found.")
 else:
-    st.write("No Pokémon selected. Please go back to the main page.")
+    st.write("No Pokémon selected.")
