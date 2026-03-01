@@ -1,140 +1,99 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 
+st.title("Analytical Insights")
+st.logo("Sprits/pokeball.png")
 
-# Load the dataset (replace with your dataset path)
-df = pd.read_csv('pokemon.csv')
-st.logo("Sprits/pokeball.png",)
+df =pd.read_csv("pokemon.csv")
 
-# Create two columns for layout
-col1, col2 = st.columns([3, 3])
+# Top 10 pokemon with higest base stats total
+st.subheader("Top 10 Pokémon with Highest Base Stats Total")
+top_10 = df.nlargest(10, "base_total")[["name", "base_total"]]
+st.write("Here are the top 10 Pokémon based on their total base stats:")
+st.dataframe(top_10)
+st.markdown("""
+**Interpretation:**  
+These Pokémon represent the highest aggregate stat profiles in the dataset.  
+They typically include legendary or pseudo-legendary species, reflecting intentional game balance design around rarity and power.
+""")
 
-with col1:
-    # Dropdown to select a Pokémon (with unique key)
-    pokemon_names = df['name'].tolist()
-    selected_pokemon_1 = st.selectbox("Choose a Pokémon", pokemon_names, key="pokemon_selector_1")
+# Average Base total by type
+st.subheader("Average Base Total by Type")
+avg_base_total = df.groupby("type1")["base_total"].mean().sort_values(ascending=False)
+fig, ax = plt.subplots(figsize=(10, 6))
+avg_base_total.plot(kind="bar", ax=ax)
+ax.set_title("Average Base Total by Type")
+ax.set_ylabel("Average Base Total")
+ax.set_xlabel("Type")
+ax.tick_params(axis='x', rotation=45)
+st.pyplot(fig)
+st.markdown("""
+**Interpretation:**  
+Some primary types exhibit consistently higher average base totals.  
+This suggests structural design differences between types, where certain archetypes are inherently stronger in aggregate stats.
+""")
 
-    # Button to view details
-    if st.button("View Details", key="view_button_1"):
-        # Set the query parameter to the selected Pokémon and rerun
-        st.query_params["pokemon_1"] = selected_pokemon_1
-        st.rerun()
+# Legendary vs Non-Legendary
+st.subheader("Legendary vs Non-Legendary Base Total Comparison")
+legendary = df[df["is_legendary"] == 1]["base_total"]
+non_legendary = df[df["is_legendary"] == 0]["base_total"]
+fig, ax = plt.subplots(figsize=(6, 6))
+ax.boxplot([legendary, non_legendary], labels=["Legendary", "Non-Legendary"])
+ax.set_title("Base Total Distribution")
+ax.set_ylabel("Base Total")
+st.pyplot(fig)
+st.markdown("""
+**Interpretation:**  
+Legendary Pokémon show a clear upward shift in base total distribution.  
+The variance also tends to be tighter, indicating deliberate power scaling within this category.
+""")
 
-    # Get the selected Pokémon from query parameters
-    selected_pokemon_1 = st.query_params.get("pokemon_1", None)
+# Base total by Generation 
+st.subheader("Base Total Distribution by Generation")
+generations = sorted(df["generation"].unique())
+data = [df[df["generation"] == gen]["base_total"] for gen in generations]
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.boxplot(data, labels=generations)
+ax.set_title("Base Total by Generation")
+ax.set_xlabel("Generation")
+ax.set_ylabel("Base Total")
+st.pyplot(fig)
+st.markdown("""
+**Interpretation:**  
+Changes in distribution across generations may reflect evolving game balance philosophy.  
+Later generations may introduce broader stat variance or stronger average profiles.
+""")
 
-    if selected_pokemon_1:
-        # Filter the dataset for the selected Pokémon
-        pokemon_data = df[df['name'] == selected_pokemon_1]
-    
-        if not pokemon_data.empty:
-            st.subheader(f"Details for {selected_pokemon_1}")
-        
-            col1_inner, col2_inner = st.columns([1, 2])
+# Correlation between height and weight
+st.subheader("Correlation Between Height and Weight")
+corr_hw = df["height_m"].corr(df["weight_kg"])
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.scatter(df["height_m"], df["weight_kg"], alpha=0.5, color="skyblue")
+ax.set_xlabel("Height (meters)")
+ax.set_ylabel("Weight (kg)")
+ax.grid(True, linestyle="--", alpha=0.7)
+st.pyplot(fig)
+st.write(f"Pearson correlation coefficient: **{corr_hw:.2f}**")
+st.markdown("""
+**Interpretation:**  
+A positive correlation here would align with real-world expectations: larger (taller) Pokémon are likely heavier due to increased mass. 
+            Outliers might include lightweight tall Pokémon (e.g., flying types) or heavy short ones (e.g., rock types).
+""")
 
-            with col1_inner:
-                pokedex_num = pokemon_data['pokedex_number'].values[0]
-                image_path = f"Sprits/{pokedex_num}.png"
-                try:
-                    st.image(image_path, caption=selected_pokemon_1)
-                except:
-                    st.write("Image not available")
-
-            with col2_inner:
-                # Display basic information
-                st.write("**Pokédex Number:**", pokemon_data['pokedex_number'].values[0])
-                st.write("**Type:**", pokemon_data['type1'].values[0], "/", pokemon_data['type2'].values[0] if 'type2' in df.columns else "")
-                st.write("**Generation:**", pokemon_data["generation"].values[0])
-                legendary_value = pokemon_data["is_legendary"].values[0]
-                legendary_text = "Yes" if legendary_value == 1 else "No"
-                st.write("**Legendary:**", legendary_text)
-                st.write("**Height (meters):**", pokemon_data["height_m"].values[0])
-                st.write("**Weight (kg):**", pokemon_data["weight_kg"].values[0])
-                st.write("**Abilities:**", pokemon_data["abilities"].values[0])
-                st.write("**Total Base Stat:**", pokemon_data["base_total"].values[0])
-
-            # Display stats
-            st.subheader("Stats")
-            stats = ['attack', 'defense', 'sp_attack', 'sp_defense', 'speed', "hp"]
-            stats_data = pokemon_data[stats].iloc[0]
-
-            # Create a bar chart for stats
-            fig, ax = plt.subplots(facecolor="black")
-            ax.set_facecolor('black')
-            stats_data.plot(kind='barh', ax=ax, color="lightblue")
-            ax.set_title(f"{selected_pokemon_1}'s Stats", color='white')
-            ax.set_ylabel("Value", color='white')
-            ax.tick_params(axis='x', colors='white')
-            ax.tick_params(axis='y', colors='white')
-            st.pyplot(fig)
-        
-        else:
-            st.error("Pokémon not found.")
-    else:
-        st.write("No Pokémon selected. Please choose a Pokémon above.")
-
-with col2:
-    # Dropdown to select a Pokémon (with unique key)
-    pokemon_names = df['name'].tolist()
-    selected_pokemon_2 = st.selectbox("Choose a Pokémon", pokemon_names, key="pokemon_selector_2")
-
-    # Button to view details
-    if st.button("View Details", key="view_button_2"):
-        # Set the query parameter to the selected Pokémon and rerun
-        st.query_params["pokemon_2"] = selected_pokemon_2
-        st.rerun()
-
-    # Get the selected Pokémon from query parameters
-    selected_pokemon_2 = st.query_params.get("pokemon_2", None)
-
-    if selected_pokemon_2:
-        # Filter the dataset for the selected Pokémon
-        pokemon_data = df[df['name'] == selected_pokemon_2]
-    
-        if not pokemon_data.empty:
-            st.subheader(f"Details for {selected_pokemon_2}")
-        
-            col1_inner, col2_inner = st.columns([1, 2])
-
-            with col1_inner:
-                pokedex_num = pokemon_data['pokedex_number'].values[0]
-                image_path = f"Sprits/{pokedex_num}.png"
-                try:
-                    st.image(image_path, caption=selected_pokemon_2)
-                except:
-                    st.write("Image not available")
-
-            with col2_inner:
-                # Display basic information
-                st.write("**Pokédex Number:**", pokemon_data['pokedex_number'].values[0])
-                st.write("**Type:**", pokemon_data['type1'].values[0], "/", pokemon_data['type2'].values[0] if 'type2' in df.columns else "")
-                st.write("**Generation:**", pokemon_data["generation"].values[0])
-                legendary_value = pokemon_data["is_legendary"].values[0]
-                legendary_text = "Yes" if legendary_value == 1 else "No"
-                st.write("**Legendary:**", legendary_text)
-                st.write("**Height (meters):**", pokemon_data["height_m"].values[0])
-                st.write("**Weight (kg):**", pokemon_data["weight_kg"].values[0])
-                st.write("**Abilities:**", pokemon_data["abilities"].values[0])
-                st.write("**Total Base Stat:**", pokemon_data["base_total"].values[0])
-
-            # Display stats
-            st.subheader("Stats")
-            stats = ['attack', 'defense', 'sp_attack', 'sp_defense', 'speed', "hp"]
-            stats_data = pokemon_data[stats].iloc[0]
-
-            # Create a bar chart for stats
-            fig, ax = plt.subplots(facecolor="black")
-            ax.set_facecolor('black')
-            stats_data.plot(kind='barh', ax=ax, color="lightblue")
-            ax.set_title(f"{selected_pokemon_2}'s Stats", color='white')
-            ax.set_ylabel("Value", color='white')
-            ax.tick_params(axis='x', colors='white')
-            ax.tick_params(axis='y', colors='white')
-            st.pyplot(fig)
-
-        else:
-            st.error("Pokémon not found.")
-    else:
-        st.write("No Pokémon selected. Please choose a Pokémon above.")
+# Correlation between egg steps and base total
+st.subheader("Correlation Between Egg Steps and Base Total")
+corr_egg = df["base_egg_steps"].corr(df["base_total"])
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.scatter(df["base_egg_steps"], df["base_total"], alpha=0.5, color="lightcoral")
+ax.set_xlabel("Base Egg Steps")
+ax.set_ylabel("Base Total")
+ax.grid(True, linestyle="--", alpha=0.7)
+st.pyplot(fig)
+st.write(f"Pearson correlation coefficient: **{corr_egg:.2f}**")
+st.markdown("""
+**Interpretation:**  
+In Pokémon games, egg steps often reflect a Pokémon’s rarity or power. 
+            A positive correlation would suggest that stronger Pokémon (higher base total) take longer to hatch, aligning with species like legendaries or pseudo-legendaries.
+            A low or negative correlation might indicate design balance or exceptions like weak Pokémon with long hatch times.
+""")
