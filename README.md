@@ -14,7 +14,6 @@ This project focuses just on Python-based exploratory data analysis and interact
 - **Compare Tool** – Compare multiple Pokémon side by side.
 - **Insights Dashboard** – Visualize Pokémon distributions, top stats, and trends.
 - **Game Feature** – Small interactive element for engagement.
-- **View All Page** – Browse the full dataset (to be improved/removed in future updates).  
 
 **Live Demo:** [Click Here](https://pokemon-pokedex.streamlit.app/)
 
